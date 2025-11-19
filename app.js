@@ -204,14 +204,23 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
         btn.id = `id_despesa_${d.id}` 
         btn.onclick = function() {
             let id = this.id.replace('id_despesa_', '')
-            
-            bd.remover(id)
 
-            window.location.reload()
+            document.getElementById('modal_titulo').innerHTML = 'Despesa excluída'
+            document.getElementById('modal_cor_titulo').className = 'modal-header text-danger'
+            document.getElementById('modal_descricao').innerHTML = "A despesa foi excluída com sucesso."
+            document.getElementById('modal_btn').innerHTML = 'Voltar'
+            document.getElementById('modal_btn').className = 'btn btn-danger'
+
+            bd.remover(id)
+    
+            $('#modalRegistraDespesa').modal('show')
+
         }
         linha.insertCell(4).append(btn)
 
-        console.log(d)
+        $('#modalRegistraDespesa').on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
 
     })
 }
